@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Stream Information</title>
+  <style>
+    * {
+      font-family:Arial, Helvetica, sans-serif;
+    }
+
+    main {
+      margin: 0 auto;
+      max-width: 700px;
+    }
+
+    #converted_time {
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Prince's Stream Information!</h1>
+    <p>I stream on <a href="https://twitch.tv/maxcellw">Twitch</a> every
+    Tuesday. My streams start at 6:30PM EDT (GMT-4). My next stream should start at <span id="converted_time"></span> for you!</p>
+  </main>
+  <script>
+    // This can be useful for forward planning if we wanted to
+    const streamtime = (new URL(document.location))?.searchParams?.date;
+  
+    const dateTimeFormatDefaults = {
+      locale: 'en-US',
+      timeZone: 'America/New_York',
+      day: 'numeric',
+      month: 'long',
+      weekday: 'long',
+      hour: 'numeric',
+      minute: 'numeric'
+    }
+    const formatter = Intl.DateTimeFormat('default', dateTimeFormatDefaults)
+
+    // Find the next occurence of any day of the week based upon the date
+    // If we are on the day of the week we're looking for, it should land on the same day
+    function nextOccurrence(date, dayOfWeek) {
+      const currentDate = date ? new Date(date) : new Date();
+      const nextDate = new Date(currentDate);
+      // debugger
+      nextDate.setDate(currentDate.getDate() + (7 + dayOfWeek - currentDate.getDay()) % 7)
+      
+      // Set the time we want for UTC. 6:30PM EDT is 10:30PM UTC 
+      nextDate.setUTCHours(22)
+      nextDate.setUTCMinutes(30)
+      nextDate.setUTCSeconds(0)
+      nextDate.setUTCMilliseconds(0)
+      return nextDate
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const timeElement = document.getElementById('converted_time');
+      timeElement.textContent = nextOccurrence(streamtime, 3).toLocaleString(dateTimeFormatDefaults);
+    })
+  </script>
+</body>
+</html>
