@@ -29,7 +29,7 @@ exports.handler = async function (event,context) {
     return nextDate
   }
 
-  const date = formatter.format(nextOccurrence(undefined, 3)).toLocaleString(dateTimeFormatDefaults)
+  const date = formatter.format(nextOccurrence(undefined, 2)).toLocaleString(dateTimeFormatDefaults)
   const text = "Next Stream on " + encodeURIComponent(date.replace(/,/g, ""))
 
   const ogImageUrl = `https://res.cloudinary.com/maxcell/image/upload/w_1289,h_676/w_700,x_100,y_425,c_fit,g_south_west,l_text:Roboto_50_bold:${text}/large_stream_thumbnail_nzimbu.png`
