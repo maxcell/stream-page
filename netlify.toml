@@ -1,0 +1,6 @@
+[build]
+    edge_handlers = "netlify/edge_handlers"
+
+    [[edge_handlers]]
+        path = "/beef"
+        handler = "localize"
