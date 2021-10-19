@@ -2,5 +2,5 @@
     edge_handlers = "netlify/edge_handlers"
 
     [[edge_handlers]]
-        path = "/beef"
+        path = "/"
         handler = "localize"
