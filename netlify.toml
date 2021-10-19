@@ -1,5 +1,5 @@
 [build]
-    edge_handlers = "netlify/edge_handlers"
+    edge_handlers = "netlify/edge-handlers"
 
     [[edge_handlers]]
         path = "/"
